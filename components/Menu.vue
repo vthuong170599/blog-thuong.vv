@@ -1,10 +1,10 @@
 <template>
   <div>
     <ul class="list-group">
-      <li class="list-group-item"><nuxt-link to="/">Home</nuxt-link></li>
-      <li class="list-group-item"><nuxt-link to="/search">Search</nuxt-link></li>
-      <li class="list-group-item"><nuxt-link to="/add">New</nuxt-link></li>
-      <li class="list-group-item"><nuxt-link to="/edit">Edit</nuxt-link></li>
+      <li class="list-group-item"><nuxt-link to="/Blog/list">Home</nuxt-link></li>
+      <li class="list-group-item"><nuxt-link to="/Blog/search">Search</nuxt-link></li>
+      <li class="list-group-item"><nuxt-link to="/Blog/add">New</nuxt-link></li>
+      <li class="list-group-item"><nuxt-link to="/Blog/edit">Edit</nuxt-link></li>
     </ul>
   </div>
 </template>

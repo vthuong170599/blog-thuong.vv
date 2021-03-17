@@ -1,6 +1,18 @@
-export const CATEGORY = [
+  export const state = () =>({ CATEGORY = [
     {id:1,category:'thời sự'},
     {id:2,category:'thế giới'},
     {id:3,category:'kinh doanh'},
     {id:4,category:'giải trí'},
-  ];
+     {id:5,category:'thời sự'},
+    {id:6,category:'thế giới'},
+    {id:7,category:'kinh doanh'},
+    {id:8,category:'giải trí'},
+    {id:9,category:'thời sự'},
+    {id:10,category:'thế giới'},
+    {id:11,category:'kinh doanh'},
+    {id:12,category:'giải trí'},
+     {id:13,category:'thời sự'},
+    {id:14,category:'thế giới'},
+    {id:15,category:'kinh doanh'},
+    {id:0,category:'giải trí'},
+]});

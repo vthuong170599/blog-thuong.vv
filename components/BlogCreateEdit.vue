@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>{{ title }}</h2>
     <div class="col-md-8">
       <form action="">
         <div class="form-group">
@@ -134,7 +133,7 @@
             placeholder="Mô tả ngắn"
           />
         </div>
-        <div style="margin-left:45%;margin-bottom:10%">
+        <div style="margin-left: 45%; margin-bottom: 10%">
           <button type="submit" class="btn btn-success">Submit</button>
           <button type="button" class="btn btn-primary">Clear</button>
         </div>
@@ -142,19 +141,11 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
-  data() {
-    return {
-      title: "New Blogs",
-    };
-  },
-};
-</script>
-
-<style>
-#species {
-  width: 20%;
+    name: 'blog-create-edit'
 }
+</script>
+<style scoped>
+
 </style>
