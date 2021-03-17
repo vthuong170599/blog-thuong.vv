@@ -1,15 +1,15 @@
 <template>
   <div>
-    <edit-component/>
+    <edit-component />
   </div>
 </template>
 
 <script>
 import EditComponent from '../../components/template/EditComponent'
 export default {
- components: {
-   EditComponent
- }
+    components: {
+        EditComponent
+    }
 };
 </script>
 

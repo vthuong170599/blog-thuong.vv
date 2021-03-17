@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <button  class="btn btn-success" @click="search()">Search</button>
+      <button  class="btn btn-success" @click="searchBlog()">Search</button>
     </div>
     <h2 class="mt-5">{{ titleTable }}</h2>
     <List-blog :dataBlog="listBlog" />
@@ -28,6 +28,7 @@
 </template>
 <script>
 import axios from "axios";
+import ListBlog from '../ListBlog';
 export default {
     name: 'search-component',
      props: {},
@@ -37,26 +38,19 @@ export default {
       titleTable: "List Blogs",
       Search: "",
       listBlog: [],
-
-      // listBlogFilter: [],
     };
   },
-  mounted() {
-    // this.search();
-  },
-  computed: {
-    // listBlogFilter: function () {
-    //   return this.listBlog.filter((blog) => blog.title.includes(this.search));
-    // },
-  },
   methods: {
-    search() {
-      // const url = "http://localhost:3001/blogs?title=" + this.Search;
+    // fucntion search blog
+    searchBlog() {
       axios.get("http://localhost:3001/blogs" +"?title_like=" +this.Search).then((res) => {
         this.listBlog = res.data;
         console.log(res.data);
       });
     },
   },
+  components: {
+    ListBlog
+  }
 }
 </script>

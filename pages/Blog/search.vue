@@ -5,7 +5,12 @@
 </template>
 
 <script>
-export default {};
+import SearchComponent from '../../components/template/SearchComponent';
+export default {
+  components: {
+    SearchComponent
+  }
+};
 </script>
 
 <style scope>

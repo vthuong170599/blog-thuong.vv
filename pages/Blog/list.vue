@@ -5,9 +5,11 @@
 </template>
 
 <script>
-
+import ListBlogComponent from '../../components/template/ListBlogComponent'
 export default {
-
+components: {
+    ListBlogComponent
+}
 };
 </script>
 

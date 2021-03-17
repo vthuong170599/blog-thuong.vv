@@ -21,8 +21,16 @@
           <td>{{ blog.public }}</td>
           <td>{{ blog.position }}</td>
           <td>{{ blog.data_pubblic }}</td>
-          <td><a class="btn btn-outline-success" @click="edit">Edit</a></td>
-          <td><a class="btn btn-outline-danger">Delete</a></td>
+          <td>
+            <nuxt-link class="btn btn-outline-success" :to="`/Blog/${blog.id}`"
+              >edit</nuxt-link
+            >
+          </td>
+          <td>
+            <button class="btn btn-outline-danger" @click="DeleteBlog(blog.id)">
+              Delete
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -31,6 +39,7 @@
 <script>
 import axios from "axios";
 const CATEGORY = [
+  { id: 0, category: "cat1" },
   { id: 1, category: "thời sự" },
   { id: 2, category: "thế giới" },
   { id: 3, category: "kinh doanh" },
@@ -46,7 +55,6 @@ const CATEGORY = [
   { id: 13, category: "thời sự" },
   { id: 14, category: "thế giới" },
   { id: 15, category: "kinh doanh" },
-  { id: 0, category: "giải trí" },
 ];
 export default {
   name: "list-blog",
@@ -66,9 +74,6 @@ export default {
   },
   computed: {},
   methods: {
-    edit: function Edit() {
-      this.$router.push("/Blog/edit");
-    },
     checkCate(id) {
       const lmao = this.CATEGORY.map((item) => {
         if (item.id === id) {
@@ -77,6 +82,14 @@ export default {
         return "";
       });
       return lmao.join("");
+    },
+    DeleteBlog(id) {
+      axios.delete("http://localhost:3001/blogs/" + id).then((res) => {
+        console.log("xoa thanh cong");
+        axios.get("http://localhost:3001/blogs").then((res) => {
+          this.dataBlog = res.data;
+        });
+      });
     },
   },
 };

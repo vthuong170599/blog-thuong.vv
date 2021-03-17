@@ -1,12 +1,13 @@
 <template>
   <div>
-    <add-component />
+    <add-component/>
   </div>
 </template>
 
 <script>
+import AddComponent from '../../components/template/AddComponent';
 export default {
-  data() {},
+  components: { AddComponent },
 };
 </script>
 

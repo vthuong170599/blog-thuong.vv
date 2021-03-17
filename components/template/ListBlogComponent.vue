@@ -6,19 +6,22 @@
 </template>
 <script>
 import axios from "axios";
+import ListBlogComponent from '../ListBlog';
 
 export default {
+  components: { ListBlogComponent },
   name: "list-blog-component",
   data() {
     return {
       dataBlog: [],
     };
   },
-  mounted() {
+  mounted() { 
     this.fetch();
   },
 
   methods: {
+    // get data from api
     fetch() {
       axios.get("http://localhost:3001/blogs").then((res) => {
         this.dataBlog = res.data;
