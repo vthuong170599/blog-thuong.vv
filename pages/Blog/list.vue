@@ -1,15 +1,34 @@
 <template>
   <div>
-    <list-blog-component/>
+    <list-blog :dataBlog="dataBlog"/>
   </div>
 </template>
 
 <script>
-import ListBlogComponent from '../../components/template/ListBlogComponent'
+import ListBlog from "../../components/ListBlog";
+import axios from "axios";
 export default {
-components: {
-    ListBlogComponent
-}
+  components: {
+    ListBlog,
+  },
+  data() {
+    return {
+      dataBlog: [],
+    };
+  },
+  mounted() {
+    this.fetch();
+  },
+  methods: {
+    /** get data of blog api
+     * @since 18-3-2021
+     */
+    fetch() {
+      axios.get("http://localhost:3001/blogs").then((res) => {
+        this.dataBlog = res.data;
+      });
+    },
+  },
 };
 </script>
 

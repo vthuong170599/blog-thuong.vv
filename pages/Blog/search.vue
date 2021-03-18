@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SearchComponent from '../../components/template/SearchComponent';
+import SearchComponent from '../../components/blog/SearchComponent';
 export default {
   components: {
     SearchComponent

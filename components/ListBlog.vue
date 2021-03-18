@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>List Blog</h2>
     <table class="table">
       <thead>
         <tr>
@@ -14,12 +15,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="blog in dataBlog" :key="blog.id">
-          <td scope="row">{{ blog.id }}</td>
+        <tr v-for="(blog, index) in dataBlog" :key="index">
+          <td scope="row">{{ index + 1 }}</td>
           <td>{{ blog.title }}</td>
-          <td>{{ checkCate(blog.category) }}</td>
-          <td>{{ blog.public }}</td>
-          <td>{{ blog.position }}</td>
+          <td>{{ findCategory(blog.category) }}</td>
+          <td>{{ blog.public == true ? "yes" : "no" }}</td>
+          <td>{{ filterPosition(blog.position) }}</td>
           <td>{{ blog.data_pubblic }}</td>
           <td>
             <nuxt-link class="btn btn-outline-success" :to="`/Blog/${blog.id}`"
@@ -27,7 +28,10 @@
             >
           </td>
           <td>
-            <button class="btn btn-outline-danger" @click="DeleteBlog(blog.id)">
+            <button
+              class="btn btn-outline-danger"
+              @click="DeleteBlog(blog.id, index)"
+            >
               Delete
             </button>
           </td>
@@ -38,24 +42,9 @@
 </template>
 <script>
 import axios from "axios";
-const CATEGORY = [
-  { id: 0, category: "cat1" },
-  { id: 1, category: "thời sự" },
-  { id: 2, category: "thế giới" },
-  { id: 3, category: "kinh doanh" },
-  { id: 4, category: "giải trí" },
-  { id: 5, category: "thời sự" },
-  { id: 6, category: "thế giới" },
-  { id: 7, category: "kinh doanh" },
-  { id: 8, category: "giải trí" },
-  { id: 9, category: "thời sự" },
-  { id: 10, category: "thế giới" },
-  { id: 11, category: "kinh doanh" },
-  { id: 12, category: "giải trí" },
-  { id: 13, category: "thời sự" },
-  { id: 14, category: "thế giới" },
-  { id: 15, category: "kinh doanh" },
-];
+import { CATEGORY } from "../constant/constant";
+import { POSITION } from "../constant/constant";
+
 export default {
   name: "list-blog",
   mounted() {
@@ -69,28 +58,76 @@ export default {
   },
   data() {
     return {
-      CATEGORY,
+      CATEGORY: CATEGORY,
+      POSITION: POSITION,
+      number: [],
     };
   },
   computed: {},
   methods: {
-    checkCate(id) {
-      const lmao = this.CATEGORY.map((item) => {
-        if (item.id === id) {
-          return item.category;
-        }
-        return "";
-      });
-      return lmao.join("");
+    /** delete Blog by id
+     * @return array CATEGORY
+     *
+     * @since 18-3-2021
+     */
+    getCate() {
+      return this.CATEGORY;
     },
-    DeleteBlog(id) {
+
+    /** delete Blog by id
+     * @return array POSITION
+     *
+     * @since 18-3-2021
+     */
+    getPosition() {
+      return this.POSITION;
+    },
+
+    /** delete Blog by id
+     * @param  id id for element Blog
+     *
+     * @since 18-3-2021
+     */
+    DeleteBlog(id, index) {
       axios.delete("http://localhost:3001/blogs/" + id).then((res) => {
         console.log("xoa thanh cong");
-        axios.get("http://localhost:3001/blogs").then((res) => {
-          this.dataBlog = res.data;
-        });
+        this.dataBlog.splice(index, 1);
       });
+    },
+
+      /** find Blog by id category = key CATEGORY
+     * @param  id id for blog.category
+     *
+     * @since 18-3-2021
+     */
+    findCategory(id) {
+      return this.CATEGORY.find((cate, index) => {
+        if (index === id) {
+          return cate;
+        }
+      });
+    },
+
+    /** find Blog by id position = key POSITION
+     * @param  id id for blog.position
+     *
+     * @since 18-3-2021
+     */
+    filterPosition(pos) {
+      return pos
+        .map((item) => {
+          return this.POSITION[item];
+        })
+        .join(",");
     },
   },
 };
 </script>
+<style scoped>
+table td {
+  /* border: none; */
+}
+ul {
+  list-style: none;
+}
+</style>

@@ -1,9 +1,11 @@
 <template>
   <div>
-    <p v-if="err.length > 0">{{ err }}</p>
     <div class="col-md-8">
       <div>
         <div class="form-group">
+          <p v-if="Object.keys(err).length > 0" class="text text-danger">
+            {{ err.title }}
+          </p>
           <label for="title">Tiêu đề</label>
           <input
             type="text"
@@ -16,6 +18,9 @@
           />
         </div>
         <div class="form-group">
+          <p v-if="Object.keys(err).length > 0" class="text text-danger">
+            {{ err.des }}
+          </p>
           <label for="desc">Mô tả ngắn</label>
           <input
             type="text"
@@ -28,6 +33,9 @@
           />
         </div>
         <div class="form-group">
+          <p v-if="Object.keys(err).length > 0" class="text text-danger">
+            {{ err.detail }}
+          </p>
           <label for="detail">chi tiết</label>
           <textarea
             class="form-control"
@@ -50,6 +58,9 @@
           />
         </div>
         <div class="form-group">
+          <p v-if="Object.keys(err).length > 0" class="text text-danger">
+            {{ err.category }}
+          </p>
           <label for="species">loại</label>
           <select
             class="form-control"
@@ -58,15 +69,18 @@
             v-model="blogs.category"
           >
             <option
-              v-for="(cate, index) in CATEGORY"
+              v-for="(cate, index) in getCate()"
               :key="index"
-              :value="cate.id"
+              :value="index"
             >
-              {{ cate.category }}
+              {{ cate }}
             </option>
           </select>
         </div>
         <div class="form-group">
+          <p v-if="Object.keys(err).length > 0" class="text text-danger">
+            {{ err.position }}
+          </p>
           <p>Vị trí</p>
           <ul class="list-group list-group-flush">
             <li
@@ -101,12 +115,15 @@
           <input
             type="radio"
             id="checkbox2"
-          :value="no"
+            :value="no"
             v-model="blogs.public"
           />
           <label for="checkbox2">No</label><br />
         </div>
         <div class="form-group mt-3">
+          <p v-if="Object.keys(err).length > 0" class="text text-danger">
+            {{ err.data_pubblic }}
+          </p>
           <label for="desc">Date public</label>
           <input
             style="width: 30%"
@@ -144,25 +161,27 @@
 </template>
 <script>
 import axios from "axios";
-const CATEGORY = [
-  { id: 0, category: "cat1" },
-  { id: 1, category: "thời sự" },
-  { id: 2, category: "thế giới" },
-  { id: 3, category: "kinh doanh" },
-  { id: 4, category: "giải trí" },
-  { id: 5, category: "thời sự" },
-  { id: 6, category: "thế giới" },
-  { id: 7, category: "kinh doanh" },
-  { id: 8, category: "giải trí" },
-  { id: 9, category: "thời sự" },
-  { id: 10, category: "thế giới" },
-  { id: 11, category: "kinh doanh" },
-  { id: 12, category: "giải trí" },
-  { id: 13, category: "thời sự" },
-  { id: 14, category: "thế giới" },
-  { id: 15, category: "kinh doanh" },
-];
-const POSITION = ["Việt Nam", "Châu Á", "Châu Âu", "Châu Mỹ"];
+import { CATEGORY } from "../../constant/constant";
+import { POSITION } from "../../constant/constant";
+// const CATEGORY = [
+//   { id: 0, category: "cat1" },
+//   { id: 1, category: "thời sự" },
+//   { id: 2, category: "thế giới" },
+//   { id: 3, category: "kinh doanh" },
+//   { id: 4, category: "giải trí" },
+//   { id: 5, category: "thời sự" },
+//   { id: 6, category: "thế giới" },
+//   { id: 7, category: "kinh doanh" },
+//   { id: 8, category: "giải trí" },
+//   { id: 9, category: "thời sự" },
+//   { id: 10, category: "thế giới" },
+//   { id: 11, category: "kinh doanh" },
+//   { id: 12, category: "giải trí" },
+//   { id: 13, category: "thời sự" },
+//   { id: 14, category: "thế giới" },
+//   { id: 15, category: "kinh doanh" },
+// ];
+// const POSITION = ["Việt Nam", "Châu Á", "Châu Âu", "Châu Mỹ"];
 export default {
   name: "blog-create-edit",
   data() {
@@ -171,8 +190,8 @@ export default {
       no: false,
       ShowAdd: true,
       showEdit: false,
-      CATEGORY,
-      POSITION,
+      CATEGORY: CATEGORY,
+      POSITION: POSITION,
       blogs: {
         id: "",
         title: "",
@@ -184,32 +203,50 @@ export default {
         position: [],
         thumbs: "",
       },
-      err: [],
+      err: {},
     };
   },
   methods: {
-    // function add blog
-    addBog() {
-      this.err = [];
+    getCate() {
+      return this.CATEGORY;
+    },
+    getPosition() {
+      return this.POSITION;
+    },
+    /** validatation update and create
+     *
+     * @since 18-3-2021
+     */
+    validateBlog() {
+      this.err = {};
       // validate
       if (this.blogs.title == "") {
-        this.err.push("title không được để trống");
+        this.err.title = "title không được để trống";
       }
       if (this.blogs.des == "") {
-        this.err.push("Mô tả không được để trống");
+        this.err.des = "Mô tả không được để trống";
       }
       if (this.blogs.detail == "") {
-        this.err.push("Chi tiết không được để trống");
+        this.err.detail = "Chi tiết không được để trống";
       }
       if (this.blogs.data_pubblic == "") {
-        this.err.push("data_pubblic không được để trống");
+        this.err.data_pubblic = "data_pubblic không được để trống";
       }
       if (this.blogs.position == "") {
-        this.err.push("position không được để trống");
+        this.err.position = "position không được để trống";
       }
-      console.log(this.err.length);
-      if (this.err.length > 0) {
-        return false;
+    },
+
+    /** create data in blog
+     *
+     * @since 18-3-2021
+     */
+    addBog() {
+      this.validateBlog();
+      console.log(Object.keys(this.err).length);
+      if (Object.keys(this.err).length > 0) {
+        // console.log(this.err);
+        return this.err;
       } else {
         axios.post("http://localhost:3001/blogs", this.blogs).then((res) => {
           console.log("them thanh cong");
@@ -218,49 +255,42 @@ export default {
       }
     },
 
-    // get data by id
+    /** get data of blog by id
+     * @param  id id for element Blog
+     *
+     * @since 18-3-2021
+     */
     getBlogByID(id) {
       axios
         .get("http://localhost:3001/blogs/" + id)
         .then((res) => (this.blogs = res.data));
     },
 
-    // function update blog
+    /** update data of blog by id
+     * @param  id id for element Blog
+     *
+     * @since 18-3-2021
+     */
     updateBlog(id) {
-      this.err = [];
-      // validate
-      if (this.blogs.title == "") {
-        this.err.push("title không được để trống");
-      }
-      if (this.blogs.des == "") {
-        this.err.push("Mô tả không được để trống");
-      }
-      if (this.blogs.detail == "") {
-        this.err.push("Chi tiết không được để trống");
-      }
-      if (this.blogs.data_pubblic == "") {
-        this.err.push("data_pubblic không được để trống");
-      }
-      if (this.blogs.position == "") {
-        this.err.push("position không được để trống");
-      }
-      if (this.err.length > 0) {
-        return false;
-      } 
-      else {
+      this.validateBlog();
+      if (Object.keys(this.err).length > 0) {
+        return this.err;
+      } else {
         axios
           .put("http://localhost:3001/blogs/" + id, this.blogs)
           .then((res) => {
             console.log("sua thanh cong " + id);
           });
-        axios.get("http://localhost:3001/blogs").then((res) => {
-          this.dataBlog = res.data;
-        });
         this.$router.push("/Blog/list");
       }
     },
   },
   mounted() {
+    /** check param id of router
+     * @param  id id for element Blog
+     *
+     * @since 18-3-2021
+     */
     if (this.$route.params.id != null) {
       this.getBlogByID(this.$route.params.id);
       this.showEdit = !this.showEdit;

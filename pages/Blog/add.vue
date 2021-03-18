@@ -1,13 +1,14 @@
 <template>
   <div>
-    <add-component/>
+    <h2>New Blogs</h2>
+    <blog-create-edit />
   </div>
 </template>
 
 <script>
-import AddComponent from '../../components/template/AddComponent';
+import BlogCreateEdit from '../../components/blog/BlogCreateEdit'
 export default {
-  components: { AddComponent },
+  components: { BlogCreateEdit },
 };
 </script>
 
