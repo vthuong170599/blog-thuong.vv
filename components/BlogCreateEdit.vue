@@ -189,19 +189,30 @@ export default {
     };
   },
   methods: {
+    /** delete Blog by id
+     * @return array CATEGORY
+     *
+     * @since 18-3-2021
+     */
     getCate() {
       return this.CATEGORY;
     },
+
+     /** delete Blog by id
+     * @return array POSITION
+     *
+     * @since 18-3-2021
+     */
     getPosition() {
       return this.POSITION;
     },
+
     /** validatation update and create
      *
      * @since 18-3-2021
      */
     validateBlog() {
       this.err = {};
-      // validate
       if (this.blogs.title == "") {
         this.err.title = "title không được để trống";
       }

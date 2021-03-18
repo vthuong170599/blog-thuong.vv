@@ -90,7 +90,6 @@ export default {
      */
     DeleteBlog(id, index) {
       axios.delete("http://localhost:3001/blogs/" + id).then((res) => {
-        console.log("xoa thanh cong");
         this.dataBlog.splice(index, 1);
       });
     },
