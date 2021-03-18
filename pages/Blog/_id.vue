@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import BlogCreateEdit from '../../components/blog/BlogCreateEdit'
+import BlogCreateEdit from '../../components/BlogCreateEdit'
 export default {
     components: {
         BlogCreateEdit

@@ -161,27 +161,9 @@
 </template>
 <script>
 import axios from "axios";
-import { CATEGORY } from "../../constant/constant";
-import { POSITION } from "../../constant/constant";
-// const CATEGORY = [
-//   { id: 0, category: "cat1" },
-//   { id: 1, category: "thời sự" },
-//   { id: 2, category: "thế giới" },
-//   { id: 3, category: "kinh doanh" },
-//   { id: 4, category: "giải trí" },
-//   { id: 5, category: "thời sự" },
-//   { id: 6, category: "thế giới" },
-//   { id: 7, category: "kinh doanh" },
-//   { id: 8, category: "giải trí" },
-//   { id: 9, category: "thời sự" },
-//   { id: 10, category: "thế giới" },
-//   { id: 11, category: "kinh doanh" },
-//   { id: 12, category: "giải trí" },
-//   { id: 13, category: "thời sự" },
-//   { id: 14, category: "thế giới" },
-//   { id: 15, category: "kinh doanh" },
-// ];
-// const POSITION = ["Việt Nam", "Châu Á", "Châu Âu", "Châu Mỹ"];
+import { CATEGORY } from "../constant/constant";
+import { POSITION } from "../constant/constant";
+
 export default {
   name: "blog-create-edit",
   data() {
@@ -243,13 +225,10 @@ export default {
      */
     addBog() {
       this.validateBlog();
-      console.log(Object.keys(this.err).length);
       if (Object.keys(this.err).length > 0) {
-        // console.log(this.err);
         return this.err;
       } else {
         axios.post("http://localhost:3001/blogs", this.blogs).then((res) => {
-          console.log("them thanh cong");
         });
         this.$router.push("/Blog/list");
       }

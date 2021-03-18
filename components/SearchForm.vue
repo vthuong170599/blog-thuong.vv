@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-success" @click="searchBlog()">Search</button>
+    <button class="btn btn-success mb4" @click="searchBlog()">Search</button>
   </div>
 </template>
 <script>

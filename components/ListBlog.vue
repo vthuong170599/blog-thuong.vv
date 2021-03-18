@@ -124,10 +124,5 @@ export default {
 };
 </script>
 <style scoped>
-table td {
-  /* border: none; */
-}
-ul {
-  list-style: none;
-}
+
 </style>
