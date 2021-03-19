@@ -1,25 +1,28 @@
 <template>
   <div>
     <h2>Search Blogs</h2>
-    <search-form @sendKeyWord="searchBlog"/>
-    <list-blog :dataBlog="listBlog" @getDataBlogAfterDelete="getDataAfterSearch"/>
+    <search-form @sendKeyWord="searchBlog" />
+    <list-blog
+      :dataBlog="listBlog"
+      @getDataBlogAfterDelete="getDataAfterSearch"
+    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import SearchForm from '../../components/blog/SearchForm';
-import ListBlog from '../../components/blog/ListBlog';
+import SearchForm from "../../components/blog/SearchForm";
+import ListBlog from "../../components/blog/ListBlog";
 export default {
   components: {
     SearchForm,
-    ListBlog
+    ListBlog,
   },
-   data(){
+  data() {
     return {
-      Search: '',
-      listBlog: []
-    }
+      Search: "",
+      listBlog: [],
+    };
   },
   methods: {
     /** search data of blog by key word
@@ -27,27 +30,19 @@ export default {
      */
     searchBlog(data) {
       this.Search = data;
-      if(data == ''){
-         axios
-        .axios.get("http://localhost:3001/blogs")
+      axios
+        .get("http://localhost:3001/blogs?title_like=" + this.Search)
         .then((res) => {
           this.listBlog = res.data;
         });
-      }else{
-        axios
-        .get("http://localhost:3001/blogs?title_like=" + this.Search )
-        .then((res) => {
-          this.listBlog = res.data;
-        });
-      }
     },
-    
+
     /** call back function searchBlog
      * @since 19-3-2021
      */
-    getDataAfterSearch(){
+    getDataAfterSearch() {
       this.searchBlog(this.Search);
-    }
+    },
   },
 };
 </script>
