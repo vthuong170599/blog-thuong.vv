@@ -2,7 +2,7 @@
   <div>
     <h2>Search Blogs</h2>
     <search-form @sendKeyWord="searchBlog"/>
-    <list-blog :dataBlog="listBlog"/>
+    <list-blog :dataBlog="listBlog" @getDataBlogAfterDelete="getDataAfterSearch"/>
   </div>
 </template>
 
@@ -17,6 +17,7 @@ export default {
   },
    data(){
     return {
+      Search: '',
       listBlog: []
     }
   },
@@ -25,17 +26,29 @@ export default {
      * @since 18-3-2021
      */
     searchBlog(data) {
-      axios
-        .get("http://localhost:3001/blogs?title_like=" + data )
+      this.Search = data;
+      if(data == ''){
+         axios
+        .axios.get("http://localhost:3001/blogs")
         .then((res) => {
           this.listBlog = res.data;
         });
+      }else{
+        axios
+        .get("http://localhost:3001/blogs?title_like=" + this.Search )
+        .then((res) => {
+          this.listBlog = res.data;
+        });
+      }
     },
-
+    
+    /** call back function searchBlog
+     * @since 19-3-2021
+     */
+    getDataAfterSearch(){
+      this.searchBlog(this.Search);
+    }
   },
-  // updated(){
-  //   console.log('sdas');
-  // }
 };
 </script>
 

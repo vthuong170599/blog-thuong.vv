@@ -28,10 +28,7 @@
             >
           </td>
           <td>
-            <button
-              class="btn btn-outline-danger"
-              @click="DeleteBlog(blog.id)"
-            >
+            <button class="btn btn-outline-danger" @click="DeleteBlog(blog.id)">
               Delete
             </button>
           </td>
@@ -62,6 +59,45 @@ export default {
   computed: {},
   methods: {
     /** delete Blog by id
+     * send dataBlog to the list Page
+     * @param  id id for element Blog
+     *
+     * @since 18-3-2021
+     */
+    DeleteBlog(id) {
+      axios.delete("http://localhost:3001/blogs/" + id).then((res) => {
+        this.$emit("getDataBlogAfterDelete", this.dataBlog);
+      });
+    },
+
+    /** find Blog by id category = key CATEGORY
+     * @param  id id for blog.category
+     *
+     * @since 18-3-2021
+     */
+    findCategory(id) {
+      return this.CATEGORY.find((cate, index) => {
+        if (index === id) {
+          return cate;
+        }
+      });
+    },
+
+    /** find Blog by id position = key POSITION
+     * @param  id id for blog.position
+     *
+     * @since 18-3-2021
+     */
+    filterPosition(pos) {
+      return pos
+        .map((item) => {
+          return this.POSITION[item];
+        })
+        .join(",");
+    },
+  },
+  computed: {
+    /** delete Blog by id
      * @return array CATEGORY
      *
      * @since 18-3-2021
@@ -77,43 +113,6 @@ export default {
      */
     getPosition() {
       return this.POSITION;
-    },
-
-    /** delete Blog by id
-     * @param  id id for element Blog
-     *
-     * @since 18-3-2021
-     */
-    DeleteBlog(id) {
-      axios.delete("http://localhost:3001/blogs/" + id).then((res) => {
-          this.$emit('getDataBlogAfterDelete', this.dataBlog);
-      });
-    },
-
-      /** find Blog by id category = key CATEGORY
-     * @param  id id for blog.category
-     *
-     * @since 18-3-2021
-     */
-    findCategory(id) {
-      return this.CATEGORY.find((cate, index) => {
-        if (index === id) {
-          return cate;
-        }
-      });
-    },
-    
-    /** find Blog by id position = key POSITION
-     * @param  id id for blog.position
-     *
-     * @since 18-3-2021
-     */
-    filterPosition(pos) {
-      return pos
-        .map((item) => {
-          return this.POSITION[item];
-        })
-        .join(",");
     },
   },
 };

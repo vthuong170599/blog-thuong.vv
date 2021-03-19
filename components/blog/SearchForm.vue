@@ -35,7 +35,6 @@ export default {
      */
     SendKeyWord() {
       this.$emit('sendKeyWord', this.Search);
-      // console.log(this.Search);
     },
   },
 };
