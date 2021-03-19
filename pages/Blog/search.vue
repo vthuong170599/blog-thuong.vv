@@ -25,19 +25,23 @@ export default {
     };
   },
   methods: {
-    /** search data of blog by key word
+    /**
+     * search data of blog by key word
+     * @param {string} data - user list
      * @since 18-3-2021
      */
     searchBlog(data) {
       this.Search = data;
+      const url = data ? 'http://localhost:3001/blogs?title_like=' + data : 'http://localhost:3001/blogs';
       axios
-        .get("http://localhost:3001/blogs?title_like=" + this.Search)
+        .get(url)
         .then((res) => {
           this.listBlog = res.data;
         });
     },
 
-    /** call back function searchBlog
+    /** 
+     * call back function searchBlog
      * @since 19-3-2021
      */
     getDataAfterSearch() {
