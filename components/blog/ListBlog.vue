@@ -30,7 +30,7 @@
           <td>
             <button
               class="btn btn-outline-danger"
-              @click="DeleteBlog(blog.id, index)"
+              @click="DeleteBlog(blog.id)"
             >
               Delete
             </button>
@@ -42,14 +42,10 @@
 </template>
 <script>
 import axios from "axios";
-import { CATEGORY } from "../constant/constant";
-import { POSITION } from "../constant/constant";
-
+import { CATEGORY } from "../../constant/constant";
+import { POSITION } from "../../constant/constant";
 export default {
   name: "list-blog",
-  mounted() {
-    // this.fetch();
-  },
   props: {
     dataBlog: {
       type: Array,
@@ -88,9 +84,9 @@ export default {
      *
      * @since 18-3-2021
      */
-    DeleteBlog(id, index) {
+    DeleteBlog(id) {
       axios.delete("http://localhost:3001/blogs/" + id).then((res) => {
-        this.dataBlog.splice(index, 1);
+          this.$emit('getDataBlogAfterDelete', this.dataBlog);
       });
     },
 
@@ -106,7 +102,7 @@ export default {
         }
       });
     },
-
+    
     /** find Blog by id position = key POSITION
      * @param  id id for blog.position
      *
@@ -123,5 +119,4 @@ export default {
 };
 </script>
 <style scoped>
-
 </style>

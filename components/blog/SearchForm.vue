@@ -18,29 +18,24 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-success mb4" @click="searchBlog()">Search</button>
+    <button class="btn btn-success mb4" @click="SendKeyWord()">Search</button>
   </div>
 </template>
 <script>
-import axios from "axios";
+// import axios from "axios";
 export default {
   data() {
     return {
-      Search: "",
-      DataBlog: [],
+      Search: '',
     };
   },
   methods: {
-    /** search data of blog by key word
-     * @since 18-3-2021
+    /** send data of blog to the search page
+     * @since 19-3-2021
      */
-    searchBlog() {
-      axios
-        .get("http://localhost:3001/blogs" + "?title_like=" + this.Search)
-        .then((res) => {
-          this.DataBlog = res.data;
-          this.$emit("SendDataBlog", this.DataBlog);
-        });
+    SendKeyWord() {
+      this.$emit('sendKeyWord', this.Search);
+      // console.log(this.Search);
     },
   },
 };

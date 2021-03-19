@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-3 logo">
-      <img src="../static/logo.png" alt="" />
+      <img src="../../static/logo.png" alt="" />
     </div>
     <div class="col-md-9">
         <h1>Blog Management</h1>

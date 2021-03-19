@@ -13,7 +13,16 @@
     </div>
   </div>
 </template>
-
+<script>
+import Header from "../components/common/Header";
+import Menu from "../components/common/Menu";
+export default {
+  components: {
+    Header,
+    Menu
+  }
+};
+</script>
 <style>
 .content {
   width: 100%;
@@ -36,7 +45,9 @@
   width: 100%;
   height: auto;
 }
-.table tr th,.table tr,td{
+.table tr th,
+.table tr,
+td {
   text-align: center;
   border: 1px solid black;
 }

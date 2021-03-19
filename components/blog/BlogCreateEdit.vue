@@ -161,8 +161,8 @@
 </template>
 <script>
 import axios from "axios";
-import { CATEGORY } from "../constant/constant";
-import { POSITION } from "../constant/constant";
+import { CATEGORY } from "../../constant/constant";
+import { POSITION } from "../../constant/constant";
 
 export default {
   name: "blog-create-edit",

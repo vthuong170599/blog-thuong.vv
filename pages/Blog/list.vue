@@ -1,11 +1,11 @@
 <template>
   <div>
-    <list-blog :dataBlog="dataBlog"/>
+    <list-blog :dataBlog="dataBlog" @getDataBlogAfterDelete="fetch"/>
   </div>
 </template>
 
 <script>
-import ListBlog from "../../components/ListBlog";
+import ListBlog from "../../components/blog/ListBlog";
 import axios from "axios";
 export default {
   components: {
