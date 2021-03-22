@@ -22,15 +22,14 @@
             {{ err.des }}
           </p>
           <label for="desc">Mô tả ngắn</label>
-          <input
-            type="text"
+          <textarea
             class="form-control"
             name=""
             id="desc"
-            aria-describedby="helpId"
-            placeholder="Mô tả ngắn"
+            rows="6"
+            placeholder="mô tả ngắn"
             v-model="blogs.des"
-          />
+          ></textarea>
         </div>
         <div class="form-group">
           <p v-if="Object.keys(err).length > 0" class="text text-danger">
@@ -153,7 +152,6 @@
           >
             Edit
           </button>
-          <button type="button" class="btn btn-primary">Clear</button>
         </div>
       </div>
     </div>
@@ -163,7 +161,7 @@
 import axios from "axios";
 import { CATEGORY } from "../../constant/constant";
 import { POSITION } from "../../constant/constant";
-
+import swal from "sweetalert2";
 export default {
   name: "blog-create-edit",
   data() {
@@ -198,7 +196,7 @@ export default {
       return this.CATEGORY;
     },
 
-     /** delete Blog by id
+    /** delete Blog by id
      * @return array POSITION
      *
      * @since 18-3-2021
@@ -239,7 +237,13 @@ export default {
       if (Object.keys(this.err).length > 0) {
         return this.err;
       } else {
-        axios.post("http://localhost:3001/blogs", this.blogs).then((res) => {
+        axios.post("http://localhost:3001/blogs", this.blogs).then((res) => {});
+        swal.fire({
+          position: "center",
+          icon: "success",
+          title: "insert successfully",
+          showConfirmButton: false,
+          timer: 1500,
         });
         this.$router.push("/Blog/list");
       }
@@ -272,6 +276,13 @@ export default {
             console.log("sua thanh cong " + id);
           });
         this.$router.push("/Blog/list");
+        swal.fire({
+          position: "center",
+          icon: "success",
+          title: "update successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     },
   },
