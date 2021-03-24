@@ -21,6 +21,7 @@
           <td>{{ findCategory(blog.category) }}</td>
           <td>{{ blog.public == true ? "yes" : "no" }}</td>
           <td>{{ filterPosition(blog.position) }}</td>
+          <!-- <td>{{ blog.position }}</td> -->
           <td>{{ blog.data_pubblic }}</td>
           <td>
             <nuxt-link class="btn btn-outline-success" :to="`/Blog/${blog.id}`"
@@ -41,7 +42,7 @@
 import axios from "axios";
 import { CATEGORY } from "../../constant/constant";
 import { POSITION } from "../../constant/constant";
-import swal from 'sweetalert2';
+import swal from "sweetalert2";
 export default {
   name: "list-blog",
   props: {
@@ -49,6 +50,7 @@ export default {
       type: Array,
       default: () => [],
     },
+
   },
   data() {
     return {
@@ -57,7 +59,11 @@ export default {
       number: [],
     };
   },
-  computed: {},
+  
+  mounted(){
+
+  },
+
   methods: {
     /** delete Blog by id
      * send dataBlog to the list Page
@@ -66,22 +72,24 @@ export default {
      * @since 18-3-2021
      */
     DeleteBlog(id) {
-      swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axios.delete("http://localhost:3001/blogs/" + id).then((res) => {
-            this.$emit("getDataBlogAfterDelete", this.dataBlog);
-          });
-          swal.fire("Deleted!", "Your file has been deleted.", "success");
-        }
-      });
+      swal
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            axios.delete("http://localhost:8000/api/blog/" + id).then((res) => {
+              this.$emit("getDataBlogAfterDelete", this.dataBlog);
+            });
+            swal.fire("Deleted!", "Your file has been deleted.", "success");
+          }
+        });
     },
 
     /** find Blog by id category = key CATEGORY

@@ -32,10 +32,11 @@ export default {
      */
     searchBlog(data) {
       this.Search = data;
-      const url = data ? 'http://localhost:3001/blogs?title_like=' + data : 'http://localhost:3001/blogs';
+      const url = 'http://localhost:8000/api/blogs?title=' + data;
       axios
         .get(url)
         .then((res) => {
+          // console.log(res.data);
           this.listBlog = res.data;
         });
     },

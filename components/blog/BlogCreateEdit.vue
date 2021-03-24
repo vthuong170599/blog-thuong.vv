@@ -107,14 +107,14 @@
           <input
             type="radio"
             id="checkbox1"
-            :value="yes"
+            :value="1"
             v-model="blogs.public"
           />
           <label for="checkbox1">Yes</label><br />
           <input
             type="radio"
             id="checkbox2"
-            :value="no"
+            :value="0"
             v-model="blogs.public"
           />
           <label for="checkbox2">No</label><br />
@@ -237,15 +237,16 @@ export default {
       if (Object.keys(this.err).length > 0) {
         return this.err;
       } else {
-        axios.post("http://localhost:3001/blogs", this.blogs).then((res) => {});
-        swal.fire({
-          position: "center",
-          icon: "success",
-          title: "insert successfully",
-          showConfirmButton: false,
-          timer: 1500,
+        axios.post("http://localhost:8000/api/blog", this.blogs).then((res) => {
+          swal.fire({
+            position: "center",
+            icon: "success",
+            title: "insert successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.$router.push("/Blog/list");
         });
-        this.$router.push("/Blog/list");
       }
     },
 
@@ -256,7 +257,7 @@ export default {
      */
     getBlogByID(id) {
       axios
-        .get("http://localhost:3001/blogs/" + id)
+        .get("http://localhost:8000/api/blog/" + id)
         .then((res) => (this.blogs = res.data));
     },
 
@@ -271,18 +272,18 @@ export default {
         return this.err;
       } else {
         axios
-          .put("http://localhost:3001/blogs/" + id, this.blogs)
+          .put("http://localhost:8000/api/blog/" + id, this.blogs)
           .then((res) => {
             console.log("sua thanh cong " + id);
+            this.$router.push("/Blog/list");
+            swal.fire({
+              position: "center",
+              icon: "success",
+              title: "update successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
           });
-        this.$router.push("/Blog/list");
-        swal.fire({
-          position: "center",
-          icon: "success",
-          title: "update successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
       }
     },
   },
